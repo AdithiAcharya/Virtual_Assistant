@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Assistant</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Voice Assistant</h1>
+    <button onclick="startRecognition()">Speak</button>
+    <div id="response"></div>
+
+    <script>
+        const socket = io();
+
+        function startRecognition() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+
+            recognition.onresult = (event) => {
+                const text = event.results[0][0].transcript;
+                socket.emit('message', { text: text });
+                addMessage(text);
+            };
+
+            recognition.start();
+        }
+
+        socket.on('response', (data) => {
+            const responseMessage = data.message;
+            addMessage(responseMessage);
+            speakResponse(responseMessage);
+        });
+
+        function addMessage(message) {
+            const responseDiv = document.getElementById('response');
+            const messageElement = document.createElement('p');
+            messageElement.textContent = message;
+            responseDiv.appendChild(messageElement);
+        }
+
+        function speakResponse(text) {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text);
+            synth.speak(utterance);
+        }
+    </script>
+</body>
+</html>
