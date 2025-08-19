@@ -1,2 +1,1 @@
-# Virtual-Assistantt-
-Voice-Activated Assistant is a Python-based project that responds to voice commands using Pyttsx3, SpeechRecognition, and Selenium. It greets users, fetches information from Wolfram Alpha, Wikipedia, and Google, plays YouTube videos, provides weather updates, reads news, tells jokes, and controls browsers and music apps.
+#The Virtual Assistant is a Python-based desktop application designed to help users automate everyday tasks and provide quick access to information using voice or text commands. This assistant leverages libraries such as SpeechRecognition, pyttsx3, and others to enable natural language interaction, making it easy and intuitive to use.
